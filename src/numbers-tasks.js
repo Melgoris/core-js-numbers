@@ -206,10 +206,17 @@ function roundToPowerOfTen(num, pow) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
-}
+function isPrime(n) {
+  if (n <= 1) return false;
+  if (n === 2) return true;
+  if (n % 2 === 0) return false;
 
+  const square = Math.sqrt(n);
+  for (let i = 3; i <= square; i += 2) {
+    if (n % i === 0) return false;
+  }
+  return true;
+}
 /**
  * Tries to convert value to number and returns it if conversion was successful;
  * otherwise returns default value passed as a second argument.
@@ -225,8 +232,8 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  return Number.isNaN(+value) ? def : +value;
 }
 
 /**
@@ -240,8 +247,8 @@ function toNumber(/* value, def */) {
  *   -2 => -8
  *   0  => 0
  */
-function getCube(/* num */) {
-  throw new Error('Not implemented');
+function getCube(num) {
+  return num ** 3;
 }
 
 /**
@@ -256,9 +263,22 @@ function getCube(/* num */) {
  *   2  => 1
  *   3  => 2
  *   10 => 55
+ * F(n) = F(n-1) + F(n-2)
+ * F(2) = F(2-1)+F(2-2) = F(1)+F(0)
+ * F(1) = 1, F(0)=0
+ * F(2) = 1
+ * F(3) = F(3-1)+F(3-2) = F(2)+F(1)
+ * F(3) = 2
+ * F(4) = F(4-1) + F(4-2) = F(3) + F(2) = 3
  */
-function getFibonacciNumber(/* index */) {
-  throw new Error('Not implemented');
+function getFibonacciNumber(index) {
+  if (index < 2) return index;
+  let a = 0;
+  let b = 1;
+  for (let i = 2; i <= index; i += 1) {
+    [a, b] = [b, a + b];
+  }
+  return b;
 }
 
 /**
